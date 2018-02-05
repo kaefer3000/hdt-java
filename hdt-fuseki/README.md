@@ -6,7 +6,7 @@ So as alternative, download Fuseki, edit `fuseki-server` such that it loads the 
 
 ## Compiling
 
-mvn package
+`mvn package`
 
 ## Using
 
