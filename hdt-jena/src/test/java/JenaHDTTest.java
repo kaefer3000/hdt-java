@@ -1,4 +1,6 @@
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -29,6 +31,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.rdf.model.impl.ModelCom;
+import org.junit.Test;
 
 /**
  * 
@@ -239,5 +242,29 @@ public class JenaHDTTest {
 		JenaHDTTest.sparql(model, query2);
 		
 //		System.out.println("Num searches: "+graph.getNumSearches());
+	}
+
+	@Test
+	public void testUsingLubmForResultSize() throws IOException {
+		HDT hdt = HDTManager.loadIndexedHDT(new File("src/test/resources/data/lubm1.hdt").getAbsolutePath(), null);
+		HDTGraph graph = new HDTGraph(hdt);
+		Model model = new ModelCom(graph);
+
+		String query1 = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> PREFIX ub: <http://www.lehigh.edu/~zhp2/2004/0401/univ-bench.owl#> SELECT ?X WHERE {?X rdf:type ub:GraduateStudent . ?X ub:takesCourse <http://www.Department0.University0.edu/GraduateCourse0>}";
+
+		Query query = QueryFactory.create(query1);
+
+		QueryExecution qe = QueryExecutionFactory.create(query, model);
+		ResultSet results = qe.execSelect();
+
+		int resultCnt = 0;
+		while (results.hasNext()) {
+			results.next();
+			++resultCnt;
+		}
+
+		assertEquals(resultCnt, 4);
+
+		qe.close();
 	}
 }
