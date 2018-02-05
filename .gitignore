@@ -1,6 +1,11 @@
 .DS_Store
 hdt-fuseki/config-hdt.ttl
 
+# Eclipse files
+.settings
+.classpath
+.project
+
 # IntelliJ IDEA project files
 .idea
 *.iml
