@@ -44,9 +44,9 @@ hdt:HDTGraph rdfs:subClassOf ja:Graph .
 <#dataset> rdf:type ja:RDFDataset ;
     rdfs:label "Dataset" ;
     ja:defaultGraph <#graph1> ;
-    ja:namedGraph 
-	[ ja:graphName  <http://example.org/name1> ;
-          ja:graph      <#graph2> ] ;
+#    ja:namedGraph
+#	[ ja:graphName  <http://example.org/name1> ;
+#          ja:graph      <#graph2> ] 
     .
 
 <#graph1> rdfs:label "RDF Graph1 from HDT file" ;
@@ -58,7 +58,7 @@ hdt:HDTGraph rdfs:subClassOf ja:Graph .
         # hdt:keepInMemory "true" ;
     .
 
-<#graph2> rdfs:label "RDF Graph2 from HDT file" ;
-        rdf:type hdt:HDTGraph ;
-        hdt:fileName "file2.hdt" ;
-    .
+#<#graph2> rdfs:label "RDF Graph2 from HDT file" ;
+#        rdf:type hdt:HDTGraph ;
+#        hdt:fileName "file2.hdt" ;
+#    .

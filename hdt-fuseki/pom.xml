@@ -22,25 +22,9 @@
   		<version>${project.version}</version>
   	</dependency>
     <dependency>
-        <groupId>org.apache.jena</groupId>
-        <artifactId>jena-arq</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.jena</groupId>
-        <artifactId>jena-base</artifactId>
-    </dependency>
-    <dependency>
         <groupId>org.rdfhdt</groupId>
         <artifactId>hdt-api</artifactId>
         <version>${project.version}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.jena</groupId>
-        <artifactId>jena-tdb</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>org.apache.jena</groupId>
-        <artifactId>jena-core</artifactId>
     </dependency>
     <dependency>
         <groupId>org.slf4j</groupId>
@@ -48,7 +32,14 @@
     </dependency>
     <dependency>
         <groupId>org.apache.jena</groupId>
-        <artifactId>jena-fuseki1</artifactId>
+        <artifactId>jena-fuseki-war</artifactId>
+        <type>war</type>
+        <version>${jena.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.apache.jena</groupId>
+        <artifactId>jena-fuseki-server</artifactId>
+        <version>${jena.version}</version>
     </dependency>
 
   </dependencies>
@@ -56,6 +47,27 @@
 
 	<build>
 		<plugins>
+
+<plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.0.2</version>
+        <executions>
+          <execution>
+            <id>unpack-shared-resources</id>
+            <goals>
+              <goal>unpack</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+<artifactItems><artifactItem><groupId>org.apache.jena</groupId><version>${jena.version}</version><type>war</type><artifactId>jena-fuseki-war</artifactId></artifactItem></artifactItems>
+             <excludeTransitive>true</excludeTransitive>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+
             <!-- The configuration of maven-assembly-plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
